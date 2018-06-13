@@ -4,7 +4,8 @@
   "description": "start/stop web audio",
   "main": "index.js",
   "scripts": {
-    "watch": "webpack -w"
+    "watch": "webpack -w",
+    "build": "webpack -p --env.production"
   },
   "author": "Yotam Mann",
   "license": "MIT",

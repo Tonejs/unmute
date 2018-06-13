@@ -21,11 +21,11 @@ module.exports = {
 		],
 	},
 	plugins : [
-		new HtmlWebpackPlugin({
+		/*new HtmlWebpackPlugin({
 			title : 'Mute Button',
 			chunks : ['mute-button'],
 			filename : 'index.html'
-		}),
+		}),*/
 	],
 	module : {
 		rules : [
