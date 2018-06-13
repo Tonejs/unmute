@@ -3,8 +3,8 @@ import { Context } from './Context'
 import './mute-button.scss'
 
 /**
- * @param {Tone.Context} context The Tone.Context to mute/unmute
  * @param {Element=body} container The DOM element to append the button to
+ * @param {Tone.Context} context The Tone.Context to mute/unmute
  */
 export function MuteButton(container=document.body, tone=window.Tone){
 

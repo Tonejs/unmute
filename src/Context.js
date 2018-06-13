@@ -8,6 +8,8 @@ export class Context extends EventEmitter{
 
 		super()
 
+		this.tone = tone
+
 		this.context = tone.context
 
 		this.master = tone.Master
@@ -44,7 +46,7 @@ export class Context extends EventEmitter{
 	}
 
 	resume(){
-		if (this.state !== 'running'){
+		if (this.tone.supported && this.state !== 'running'){
 			return this.context.resume()
 		} else {
 			return Promise.resolve()
