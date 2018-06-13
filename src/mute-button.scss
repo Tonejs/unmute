@@ -1,0 +1,40 @@
+$margin: 10px;
+$size : 30px;
+
+#mute-button {
+	position: fixed;
+	right: $margin;
+	top: $margin;
+	border-radius: 50%;
+	width: $size;
+	height: $size;
+	// appearance: none;
+	border: none;
+	cursor: pointer;
+
+	&.muted {
+		path {
+			fill: red;
+		}
+	}
+
+	/* img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+
+	} */
+	svg {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0px;
+		left: 0px;
+
+		path {
+			fill: #aaaaaa;
+		}
+	}
+}

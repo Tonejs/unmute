@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="./build/mute-button.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/tone@next/build/Tone.js"></script>
+</head>
+<body>
+<script>
+MuteButton().then(() => {
+	const synth = new Tone.Synth().toMaster()
+	synth.volume.value = -20
+	new Tone.Sequence((time, note) => {
+		synth.triggerAttackRelease(note, 0.1, time)
+	}, ['C4', 'E4', 'G4', 'B4']).start(0)
+	Tone.Transport.start()
+})
+</script>
+</body>
+</html>
