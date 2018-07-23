@@ -1,18 +1,17 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	mode : 'development',
 	entry : {
-		'mute-button' : ['./src/MuteButton.js'],
+		unmute : ['./src/Unmute.js'],
 	},
 	context : __dirname,
 	output : {
 		path : path.resolve(__dirname, 'build'),
 		filename : '[name].js',
-		library : 'MuteButton',
+		library : 'UnmuteButton',
 		libraryTarget : 'umd',
-		libraryExport : 'MuteButton'
+		libraryExport : 'UnmuteButton'
 	},
 	resolve : {
 		modules : [
@@ -20,13 +19,6 @@ module.exports = {
 			path.resolve(__dirname, '.')
 		],
 	},
-	plugins : [
-		/*new HtmlWebpackPlugin({
-			title : 'Mute Button',
-			chunks : ['mute-button'],
-			filename : 'index.html'
-		}),*/
-	],
 	module : {
 		rules : [
 			{ 
@@ -40,7 +32,7 @@ module.exports = {
 			},
 			{
 				test : /\.(svg)$/,
-				loader : 'raw-loader'
+				loader : 'url-loader'
 			}
 		]
 	},
