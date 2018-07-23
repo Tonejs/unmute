@@ -44,9 +44,9 @@ module.exports = {
 		"space-unary-ops": [ "error" , { "words" : true, "nonwords" : false } ],
 		"block-spacing" : ["error", "always"],
 		"keyword-spacing" : ["error", { "before": true }],
-		"space-before-function-paren": ["error", "never"],
+		"space-before-function-paren": ["error", {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
 		"comma-spacing": ["error", { "before": false, "after": true }],
-        "space-before-blocks": ["error", "never"]
+        "space-before-blocks": ["error", { "functions": "never", "keywords": "never", "classes": "always" }]
 		//IMPORT
 		// "import/no-unresolved" : 2,
 		// "one-var-declaration-per-line": [ "error" , "always" ],
