@@ -3,10 +3,14 @@ import { EventEmitter } from 'events'
 /**
  * Wraps tone and handles mute/unmute and events
  */
-export class Context extends EventEmitter{
+export class Context extends EventEmitter {
 	constructor(tone){
 
 		super()
+
+		if (!tone){
+			throw new Error('Tone.js is required')
+		}
 
 		this.tone = tone
 
@@ -41,7 +45,6 @@ export class Context extends EventEmitter{
 	set mute(m){
 		if (this.state === 'running'){
 			this.master.mute = m
-			this.emit('mute', m)
 		}
 	}
 
