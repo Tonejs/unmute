@@ -17,7 +17,7 @@ Unmute()
 ### es6
 
 ```javascript
-import { Unmute } from '@tonejs/mute'
+import { Unmute } from 'unmute'
 import Tone from 'tone'
 
 //pass in the Tone.js instance
