@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TEST</title>
+	<script src="../build/Unmute.js"></script>
+</head>
+<body>
+	<script>
+		const context = new AudioContext()
+		context.suspend()
+		const button = UnmuteButton({context})
+
+		const events = {
+			started : false,
+			muted : false,
+			unmuted : false
+		}
+
+		button.on('start', () => {
+			events.started = true
+		}).on('mute', () => {
+			events.muted = true
+		}).on('unmute', () => {
+			events.unmuted = true
+		})
+	</script>
+
+</body>
+</html>
