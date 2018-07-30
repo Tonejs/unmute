@@ -12,8 +12,8 @@
   "files": [
     "README.md",
     "LICENSE",
-    "build/Unmute.js.map",
-    "build/Unmute.js",
+    "build/unmute.js.map",
+    "build/unmute.js",
     "src"
   ],
   "author": "Yotam Mann",
