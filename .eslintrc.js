@@ -47,14 +47,5 @@ module.exports = {
 		"space-before-function-paren": ["error", {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
 		"comma-spacing": ["error", { "before": false, "after": true }],
         "space-before-blocks": ["error", { "functions": "never", "keywords": "never", "classes": "always" }]
-		//IMPORT
-		// "import/no-unresolved" : 2,
-		// "one-var-declaration-per-line": [ "error" , "always" ],
-		// "object-curly-newline": [ "error" , { "multiline": true }],
-		// "array-bracket-newline": [ "error" , "always" ],
-		// "no-use-before-define" : [ "error" ],
-		// "valid-jsdoc": [ "error" ],
-		// "lines-around-comment" : [ "error", {"beforeBlockComment": true} ],
-		// "no-template-curly-in-string" : [ "error" ],
     }
 };
