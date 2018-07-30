@@ -1,6 +1,6 @@
 {
   "name": "unmute",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "start/stop web audio",
   "main": "build/unmute.js",
   "scripts": {
@@ -9,6 +9,13 @@
     "prepare": "npm run build && npm run test",
     "test": "mocha test/test.js --timeout 10000"
   },
+  "files": [
+    "README.md",
+    "LICENSE",
+    "build/Unmute.js.map",
+    "build/Unmute.js",
+    "src"
+  ],
   "author": "Yotam Mann",
   "license": "MIT",
   "devDependencies": {
