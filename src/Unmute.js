@@ -1,58 +1,66 @@
 import { Toggle } from './Toggle'
-import { Context } from './Context'
+import { Context } from './AudioContext'
 import { EventEmitter } from 'events'
 import { AudioElement } from './AudioElement'
 import './unmute.scss'
 
 /**
- * @param {Element=body} container The DOM element to append the button to
- * @param {Tone=} tone A reference to Tone.js on the page. 
  * @returns EventEmitter
  */
 class Unmute extends EventEmitter {
-	constructor({ container=document.body, Tone=window.Tone, title='Web Audio' } = {}){
+	constructor({ container=document.body, context=(window.Tone ? window.Tone.context : null), title='Web Audio' } = {}){
 		super()
+
+		if (context === null){
+			throw new Error('A Web Audio Context needs to be passed in')
+		}
 
 		/**
 		 * The HTML element
 		 * @type {Toggle}
 		 */
-		const button = this.button = new Toggle(container)
+		this._button = new Toggle(container)
 
 		/**
 		 * Controls the AudioContext
 		 * @type {Context}
 		 */
-		const context = this.context = new Context(Tone)
+		this._context = new Context(context)
+
+		/**
+		 * The AudioContext reference
+		 * @type {AudioContext}
+		 */
+		this.context = this._context.context
 
 		/**
 		 * AudioElement used to unsilence iOS
 		 * @type {AudioElement}
 		 */
-		const audioElement = new AudioElement(title)
+		this._audioElement = new AudioElement(title)
 
 		//fwd events from the context
-		context.on('mute', m => {
-			button.mute = m
+		this._context.on('mute', m => {
+			this._button.mute = m
 			this.emit(m ? 'mute' : 'unmute')
 		})
 
 		//listen for click events
-		button.on('click', () => {
-			if (context.state !== 'running'){
-				context.resume()
-				audioElement.click()
+		this._button.on('click', () => {
+			if (this._context.state !== 'running'){
+				this._context.resume()
+				this._audioElement.click()
 				this.emit('click')
 			} else {
-				context.toggleMute()
+				this._context.toggleMute()
 			}
 		})
 
 		//start out in the contexts current state
-		button.mute = context.mute
+		this._button.mute = this._context.mute
 
 		//listen for started change
-		context.started().then(() => {
+		this._context.started().then(() => {
 			this.emit('start')
 		})
 	}
@@ -62,12 +70,12 @@ class Unmute extends EventEmitter {
 	 * @type {Boolean}
 	 */
 	get mute(){
-		return this.button.mute
+		return this._button.mute
 	}
 
 	set mute(m){
-		this.button.mute = m
-		this.context.mute = m
+		this._button.mute = m
+		this._context.mute = m
 	}
 
 	/**
@@ -76,14 +84,14 @@ class Unmute extends EventEmitter {
 	 * @readOnly
 	 */
 	get element(){
-		return this.button.element
+		return this._button.element
 	}
 
 	/**
 	 * remove the element from the container
 	 */
 	remove(){
-		this.button.remove()
+		this._button.remove()
 	}
 }
 
