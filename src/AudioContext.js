@@ -1,23 +1,34 @@
 import { EventEmitter } from 'events'
+import Tone from 'Tone/core/Tone'
+import ToneContext from 'Tone/core/Context'
+import ToneMaster from 'Tone/core/Master'
 
 /**
  * Wraps tone and handles mute/unmute and events
  */
 export class Context extends EventEmitter {
-	constructor(tone){
+	constructor(context){
 
 		super()
 
-		if (!tone){
-			throw new Error('Tone.js is required')
+		if (context.toString() !== 'Context'){
+			Tone.context = context
+			context = Tone.context
 		}
 
-		this.tone = tone
+		/**
+		 * Reference to the wrapper context
+		 * @type {Tone.Context}
+		 */
+		this.context = context
 
-		this.context = tone.context
+		/**
+		 * Reference to the master output
+		 * @type {Tone.Master}
+		 */
+		this.master = context.master
 
-		this.master = tone.Master
-
+		//add listeners
 		this.context.addEventListener('statechange', e => {
 			this.emit('statechange', e)
 		})
@@ -49,7 +60,7 @@ export class Context extends EventEmitter {
 	}
 
 	resume(){
-		if (this.tone.supported && this.state !== 'running'){
+		if (Tone.supported && this.state !== 'running'){
 			return this.context.resume()
 		} else {
 			return Promise.resolve()
