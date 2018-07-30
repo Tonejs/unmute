@@ -16,8 +16,11 @@ module.exports = {
 	resolve : {
 		modules : [
 			'node_modules',
-			path.resolve(__dirname, '.')
+			path.resolve(__dirname, '.'),
 		],
+		alias : {
+			Tone : 'node_modules/tone/Tone'
+		},
 	},
 	module : {
 		rules : [
