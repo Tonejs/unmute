@@ -11,17 +11,15 @@ This button implements many browsers' requirements that the AudioContext is star
 Currently Tone.js is a dependency. Make sure that Tone.js is installed and loaded on the page. Then the mute button can be added to the page like so:
 
 ```javascript
-Unmute()
+UnmuteButton()
 ```
 
 ### es6
 
 ```javascript
-import { Unmute } from 'unmute'
-import Tone from 'tone'
+import { UnmuteButton } from 'unmute'
 
-//pass in the Tone.js instance
-Unmute({ Tone })
+UnmuteButton()
 ```
 
 ## API
@@ -32,8 +30,8 @@ Unmute takes an optional object as a parameter
 Unmute({
 	//the parent element of the mute button
 	container : document.querySelector('#container'),
-	//Tone.js instance
-	Tone : Tone,
+	//AudioContext
+	context : new AudioContext(),
 	//the title which appears on the iOS lock screen
 	title : 'Web Audio'
 })
