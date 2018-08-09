@@ -1,6 +1,6 @@
 Unmute adds a mute/unmute button to the top right corner of your page. 
 
-This button implements many browsers' requirements that the AudioContext is started by a user action before it can play any sound. If the AudioContext is not running when the page is loaded, the button will initially be muted until a user clicks to unmute the button. 
+This button implements many browsers' requirements that the AudioContext is started by a user action before it can play any sound. If the AudioContext is not running when the page is loaded, the button will initially be muted until a user clicks to unmute the button.
 
 ## INSTALLATION
 
@@ -8,7 +8,7 @@ This button implements many browsers' requirements that the AudioContext is star
 
 ## USAGE
 
-Currently Tone.js is a dependency. Make sure that Tone.js is installed and loaded on the page. Then the mute button can be added to the page like so:
+The mute button can be added to the page like so:
 
 ```javascript
 UnmuteButton()
@@ -24,10 +24,10 @@ UnmuteButton()
 
 ## API
 
-Unmute takes an optional object as a parameter
+UnmuteButton takes an optional object as a parameter
 
 ```javascript
-Unmute({
+UnmuteButton({
 	//the parent element of the mute button
 	container : document.querySelector('#container'),
 	//AudioContext
@@ -39,14 +39,14 @@ Unmute({
 
 ### EVENTS
 
-Unmute returns an event emitting object. 
+UnmuteButton returns an event emitting object. 
 
 #### "start"
 
 Emitted when the AudioContext is started for the first time. 
 
 ```javascript
-Unmute().on('start', () => {
+UnmuteButton().on('start', () => {
 	//AudioContext.state is 'running'
 	//add your Web Audio code here
 })
@@ -59,3 +59,7 @@ Emitted when the AudioContext is muted.
 ### "unmute"
 
 Emitted when the AudioContext is unmuted. 
+
+## iOS
+
+Additionally this button plays a silent sound through an <audio> element when the button is clicked which enables sound on iOS even when the mute rocker switch is toggled on. [[reference link](https://stackoverflow.com/questions/21122418/ios-webaudio-only-works-on-headphones/46839941#46839941)]
