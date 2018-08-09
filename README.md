@@ -75,7 +75,7 @@ const { context } = UnmuteButton()
 
 UnmuteButton returns an event emitting object. 
 
-#### "start"
+#### 'start'
 
 Emitted when the AudioContext is started for the first time. 
 
@@ -85,11 +85,11 @@ UnmuteButton().on('start', () => {
 })
 ```
 
-### "mute"
+#### 'mute'
 
 Emitted when the AudioContext is muted. 
 
-### "unmute"
+#### 'unmute'
 
 Emitted when the AudioContext is unmuted. 
 
