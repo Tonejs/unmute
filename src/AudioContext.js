@@ -7,13 +7,17 @@ import 'Tone/core/Master'
  * Wraps tone and handles mute/unmute and events
  */
 export class Context extends EventEmitter {
-	constructor(context){
+	constructor(context, mute, tone){
 
 		super()
 
-		if (context.toString() !== 'Context'){
+		if (context.toString() !== 'Context' && !tone){
 			Tone.context = context
 			context = Tone.context
+		} else if (tone){
+			Tone.context = tone.context._context
+			context = Tone.context
+			context.master = tone.Master
 		}
 
 		/**
@@ -23,7 +27,7 @@ export class Context extends EventEmitter {
 		this.context = context
 
 		/**
-		 * Reference to the master output
+		 * Reference to the master output.
 		 * @type {Tone.Master}
 		 */
 		this.master = context.master
@@ -32,6 +36,9 @@ export class Context extends EventEmitter {
 		this.context.addEventListener('statechange', e => {
 			this.emit('statechange', e)
 		})
+
+		//set the initial muted state
+		this.master.mute = mute
 
 		let currentmute = this.mute
 		//watch for if it's muted itself
