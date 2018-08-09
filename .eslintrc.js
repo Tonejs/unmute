@@ -6,6 +6,10 @@ module.exports = {
         "es6": true,
 		"amd" : false,
     },
+    "globals": {
+        "UnmuteButton": true,
+        "Tone": true
+    },
 	"parserOptions": {
         "ecmaVersion": 2017,
         "ecmaFeatures": {
