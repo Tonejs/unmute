@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "webpack -w",
     "build": "webpack -p --env.production",
+    "increment": "npm version patch",
     "test": "mocha test/test.js --timeout 10000"
   },
   "files": [
