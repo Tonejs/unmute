@@ -4,6 +4,8 @@ Unmute adds a mute/unmute button to the top right corner of your page.
 
 This button implements many browsers' requirements that the AudioContext is started by a user action before it can play any sound. If the AudioContext is not running when the page is loaded, the button will initially be muted until a user clicks to unmute the button.
 
+[example](https://tonejs.github.io/unmute/examples/basic.html)
+
 ## INSTALLATION
 
 `npm install unmute`
