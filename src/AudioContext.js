@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events'
 import Tone from 'Tone/core/Tone'
-import ToneContext from 'Tone/core/Context'
-import ToneMaster from 'Tone/core/Master'
+import 'Tone/core/Context'
+import 'Tone/core/Master'
 
 /**
  * Wraps tone and handles mute/unmute and events
