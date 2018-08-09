@@ -2,17 +2,18 @@ import { Toggle } from './Toggle'
 import { Context } from './AudioContext'
 import { EventEmitter } from 'events'
 import { AudioElement } from './AudioElement'
+import { addButton } from './ScriptElement'
 import './unmute.scss'
 
 /**
  * @returns EventEmitter
  */
 class Unmute extends EventEmitter {
-	constructor({ container=document.body, context=(window.Tone ? window.Tone.context : null), title='Web Audio' } = {}){
+	constructor({ container=document.body, tone=window.Tone, context=(tone ? tone.context : null), title='Web Audio', mute=false } = {}){
 		super()
 
 		if (context === null){
-			throw new Error('A Web Audio Context needs to be passed in')
+			context = new AudioContext()
 		}
 
 		/**
@@ -25,13 +26,7 @@ class Unmute extends EventEmitter {
 		 * Controls the AudioContext
 		 * @type {Context}
 		 */
-		this._context = new Context(context)
-
-		/**
-		 * The AudioContext reference
-		 * @type {AudioContext}
-		 */
-		this.context = this._context.context
+		this._context = new Context(context, mute, tone)
 
 		/**
 		 * AudioElement used to unsilence iOS
@@ -88,6 +83,15 @@ class Unmute extends EventEmitter {
 	}
 
 	/**
+	 * The AudioContext reference
+	 * @type {Tone.Context}
+	 * @readOnly
+	 */
+	get context(){
+		return this._context.context
+	}
+
+	/**
 	 * remove the element from the container
 	 */
 	remove(){
@@ -98,3 +102,6 @@ class Unmute extends EventEmitter {
 export function UnmuteButton(...args){
 	return new Unmute(...args)
 }
+
+//maybe the button automatically
+addButton(UnmuteButton)
