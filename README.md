@@ -62,6 +62,10 @@ Emitted when the AudioContext is muted.
 
 Emitted when the AudioContext is unmuted. 
 
+## Style
+
+The UnmuteButton's default styling can be overwritten with css. The UnmuteButton is a `<button>` element with id `#unmute-button`. When in a muted state, a class `.muted` is added to the element. 
+
 ## iOS
 
 Additionally this button plays a silent sound through an <audio> element when the button is clicked which enables sound on iOS even when the mute rocker switch is toggled on. [[reference](https://stackoverflow.com/questions/21122418/ios-webaudio-only-works-on-headphones/46839941#46839941)]
