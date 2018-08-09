@@ -62,4 +62,4 @@ Emitted when the AudioContext is unmuted.
 
 ## iOS
 
-Additionally this button plays a silent sound through an <audio> element when the button is clicked which enables sound on iOS even when the mute rocker switch is toggled on. [[reference link](https://stackoverflow.com/questions/21122418/ios-webaudio-only-works-on-headphones/46839941#46839941)]
+Additionally this button plays a silent sound through an <audio> element when the button is clicked which enables sound on iOS even when the mute rocker switch is toggled on. [[reference](https://stackoverflow.com/questions/21122418/ios-webaudio-only-works-on-headphones/46839941#46839941)]
