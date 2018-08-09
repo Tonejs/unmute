@@ -8,6 +8,9 @@ describe('Unmute', () => {
 	const serverPrefix = `file://${path.resolve(__dirname)}`
 
 	async function loadPage(url){
+		/*const browser = await puppeteer.launch({ 
+			args : ['--disable-features=MediaEngagementBypassAutoplayPolicies', '--user-gesture-required'],
+		})*/
 		const browser = await puppeteer.launch()
 		const page = await browser.newPage()
 		await page.goto(`${serverPrefix}/${url}`)
@@ -56,9 +59,7 @@ describe('Unmute', () => {
 	})
 
 	it('should initially be muted', async () => {
-		/*const browser = await puppeteer.launch({ 
-			args : ['--disable-features=MediaEngagementBypassAutoplayPolicies', '--user-gesture-required'],
-		})*/
+		
 		const { browser, page } = await loadPage('blank.html')
 		const context = await page.evaluate(async () => {
 			const context = new AudioContext()
@@ -136,11 +137,54 @@ describe('Unmute', () => {
 		await browser.close()
 	})
 
+	it('creates an AudioContext if none was passed in', async () => {
+		const { browser, page } = await loadPage('blank.html')
+		//before being clicked
+		const hasContext = await page.evaluate(async () => {
+			const unmute = UnmuteButton()
+			return Boolean(unmute.context)
+		})
+		expect(hasContext).to.be.true
+		await browser.close()
+	})
+
 	it('can be created with no args if tone is on the page', async () => {
 		const { browser, page } = await loadPage('tone.html')
 		await page.evaluate(() => {
-			const unmute = UnmuteButton()
+			UnmuteButton()
 		})
+		await browser.close()
+	})
+
+	it('can be used with an earlier version of Tone.js', async () => {
+		const { browser, page } = await loadPage('oldtone.html')
+		//mute the context
+		const isMuted = await page.evaluate(async () => {
+			window.unmute.mute = true
+			await wait(100)
+			return Tone.Master.mute
+		})
+		expect(isMuted).to.be.true
+
+		await browser.close()
+	})
+
+	it('can start out muted', async () => {
+		const { browser, page } = await loadPage('tone.html')
+		const muted = await page.evaluate(() => {
+			UnmuteButton({ mute : true })
+			return Tone.Master.mute
+		})
+		expect(muted).to.be.true
+		await browser.close()
+	})
+
+	it('can add itself to the page', async () => {
+		const { browser, page } = await loadPage('autoadd.html')
+		const exists = await page.evaluate(() => {
+			return Boolean(document.querySelector('#unmute-button'))
+		})
+		expect(exists).to.be.true
 		await browser.close()
 	})
 
@@ -150,7 +194,7 @@ describe('Unmute', () => {
 			window.unmute = UnmuteButton()
 			Tone.Master.mute = true
 			await wait(100)
-			return unmute.mute
+			return window.unmute.mute
 		})
 
 		expect(beforeClicked).to.be.true
@@ -161,7 +205,7 @@ describe('Unmute', () => {
 
 		//should be in the opposite state now
 		const afterClicked = await page.evaluate(() => {
-			return unmute.mute
+			return window.unmute.mute
 		})
 		expect(afterClicked).to.be.false
 
@@ -185,5 +229,27 @@ describe('Unmute', () => {
 		expect(unmuted).to.be.true
 
 		await browser.close()
+	})
+
+	/**
+	 * Helper function to load a test html file and report any errors
+	 */
+	async function testExample(url){
+		return await new Promise(async (done, error) => {
+			const examplePrefix = `file://${path.resolve(__dirname, '../examples')}`
+			const browser = await puppeteer.launch()
+			const page = await browser.newPage()
+			page.on('pageerror', e => error(e))
+			await page.goto(`${examplePrefix}/${url}`, { waitFor : 'networkidle0' })
+			await browser.close()
+			done()
+		})
+	}
+
+	it('can run all the examples', async () => {
+		await testExample('basic.html')
+		await testExample('context.html')
+		await testExample('events.html')
+		await testExample('tone.html')
 	})
 })

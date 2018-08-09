@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TEST</title>
+	<script src="../build/unmute.js"></script>
+	<script src="https://unpkg.com/tone@r7"></script>
+</head>
+<body>
+	<script>
+		async function wait(ms){
+			return new Promise(done => setTimeout(done, ms))
+		}
+
+		window.unmute = UnmuteButton()
+	</script>
+</body>
+</html>
