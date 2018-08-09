@@ -1,12 +1,12 @@
 {
   "name": "unmute",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "start/stop web audio",
   "main": "build/unmute.js",
   "scripts": {
     "watch": "webpack -w",
     "build": "webpack -p --env.production",
-    "increment": "npm version v$(semver --increment $(npm show unmute version))",
+    "increment": "npm version v$(semver --increment $(npm show unmute version)) --git-tag-version=false",
     "test": "mocha test/test.js --timeout 10000"
   },
   "files": [
