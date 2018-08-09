@@ -5,6 +5,7 @@ dist: trusty
 language: node_js
 node_js:
 - '9'
+before_script : npm build
 before_deploy: 
 - npm build
 - npm run increment
