@@ -7,7 +7,7 @@
     "watch": "webpack -w",
     "build": "webpack -p --env.production",
     "increment": "npm version v$(semver --increment $(npm show unmute version)) --git-tag-version=false",
-    "test": "mocha test/test.js --timeout 10000"
+    "test": "mocha test/test.js --timeout 30000"
   },
   "files": [
     "README.md",
