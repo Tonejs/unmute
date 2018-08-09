@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack -w",
     "build": "webpack -p --env.production",
-    "increment": "npm version v$(semver --increment $(npm show unmute version)) --git-tag-version=false",
+    "increment": "npm version v$(semver --increment $(npm show unmute version)) --git-tag-version=false --allow-same-version",
     "test": "mocha test/test.js --timeout 30000"
   },
   "files": [
