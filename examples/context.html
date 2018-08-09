@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="../build/unmute.js"></script>
+</head>
+<body>
+	<script>
+		//creates a shimmed and wrapped AudioContext if none is passed in and Tone.js is not loaded on the page
+		const context = UnmuteButton({ mute : true }).context
+		
+		//use the audio context
+		const osc = context.createOscillator()
+		osc.connect(context.destination)
+		osc.start(context.currentTime)
+	</script>
+</body>
+</html>
