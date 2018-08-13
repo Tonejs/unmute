@@ -95,6 +95,18 @@ Emitted when the AudioContext is muted.
 
 Emitted when the AudioContext is unmuted. 
 
+## Methods
+
+### `remove()`
+
+Removes the button element from its container
+
+```javascript
+const unmute = UnmuteButton()
+//remove the element
+unmute.remove()
+```
+
 ## Style
 
 The UnmuteButton's default styling can be overwritten with css. The UnmuteButton is a `<button>` element with id `#unmute-button`. When in a muted state, a class `.muted` is added to the element. 
