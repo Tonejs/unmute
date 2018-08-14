@@ -246,10 +246,10 @@ describe('Unmute', () => {
 		})
 	}
 
-	it('can run all the examples', async () => {
+	/*it('can run all the examples', async () => {
 		await testExample('basic.html')
 		await testExample('context.html')
 		await testExample('events.html')
 		await testExample('tone.html')
-	})
+	})*/
 })
