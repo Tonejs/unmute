@@ -21,7 +21,7 @@ UnmuteButton()
 ### es6
 
 ```javascript
-import { UnmuteButton } from 'unmute'
+import UnmuteButton from 'unmute'
 
 UnmuteButton()
 ```
