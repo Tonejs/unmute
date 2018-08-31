@@ -1,11 +1,9 @@
 const puppeteer = require('puppeteer')
-const path = require('path')
+const { resolve } = require('path')
 const looksSame = require('looks-same')
 const { expect } = require('chai')
 
 describe('Unmute', () => {
-
-	const serverPrefix = `file://${path.resolve(__dirname)}`
 
 	async function loadPage(url){
 		/*const browser = await puppeteer.launch({ 
@@ -13,7 +11,7 @@ describe('Unmute', () => {
 		})*/
 		const browser = await puppeteer.launch()
 		const page = await browser.newPage()
-		await page.goto(`${serverPrefix}/${url}`)
+		await page.goto(`file://${resolve(__dirname, url)}`)
 		return { page, browser }
 	}
 
@@ -30,9 +28,9 @@ describe('Unmute', () => {
 			return Boolean(document.querySelector('#unmute-button'))
 		})
 		expect(hasButton).to.be.true
-		await page.screenshot({ path : path.resolve(__dirname, './testCapture.png') })
+		await page.screenshot({ path : resolve(__dirname, './testCapture.png') })
 		const similar = await new Promise((done, error) => {
-			looksSame(path.resolve(__dirname, './referenceImage.png'), path.resolve(__dirname, './testCapture.png'), (e, equal) => {
+			looksSame(resolve(__dirname, './referenceImage.png'), resolve(__dirname, './testCapture.png'), (e, equal) => {
 				if (e){
 					error(e)
 				} else {
@@ -81,7 +79,7 @@ describe('Unmute', () => {
 			const context = new AudioContext()
 			await context.suspend()
 			window.unmute = UnmuteButton({ context })
-			return { state : context.state, mute : unmute.mute }
+			return { state : context.state, mute : window.unmute.mute }
 		})
 		expect(context.state).to.equal('suspended')
 		expect(context.mute).to.be.true
@@ -92,7 +90,7 @@ describe('Unmute', () => {
 
 		//check context and state again
 		const afterClick = await page.evaluate(() => {
-			return { state : unmute.context.state, mute : unmute.mute }
+			return { state : window.unmute.context.state, mute : window.unmute.mute }
 		})
 		expect(afterClick.mute).to.be.false
 		expect(afterClick.state).to.equal('running')
@@ -116,7 +114,7 @@ describe('Unmute', () => {
 
 		//check context and state again
 		const afterClick = await page.evaluate(() => {
-			return { state : unmute.context.state, mute : unmute.mute }
+			return { state : window.unmute.context.state, mute : window.unmute.mute }
 		})
 		expect(afterClick.mute).to.be.true
 		expect(afterClick.state).to.equal('running')
@@ -150,9 +148,21 @@ describe('Unmute', () => {
 
 	it('can be created with no args if tone is on the page', async () => {
 		const { browser, page } = await loadPage('tone.html')
-		await page.evaluate(() => {
-			UnmuteButton()
+		const sameContext = await page.evaluate(() => {
+			const unmute = UnmuteButton()
+			return unmute.context === Tone.context
 		})
+		expect(sameContext).to.be.true
+		await browser.close()
+	})
+
+	it('works with the latest version of Tone.js with no arguments', async () => {
+		const { browser, page } = await loadPage('tone_latest.html')
+		const sameContext = await page.evaluate(() => {
+			const unmute = UnmuteButton()
+			return unmute.context === Tone.context
+		})
+		expect(sameContext).to.be.true
 		await browser.close()
 	})
 
@@ -231,12 +241,24 @@ describe('Unmute', () => {
 		await browser.close()
 	})
 
+	it('works with a build', async () => {
+		const { browser, page } = await loadPage('../build/index.html')
+
+		//click it
+		await page.click('#unmute-button')
+		await page.waitFor(100)
+		
+		const sameContext = await page.evaluate(() => window.SAME_CONTEXT)
+		expect(sameContext).to.be.true
+		await browser.close()
+	})
+
 	/**
 	 * Helper function to load a test html file and report any errors
 	 */
 	async function testExample(url){
 		return await new Promise(async (done, error) => {
-			const examplePrefix = `file://${path.resolve(__dirname, '../examples')}`
+			const examplePrefix = `file://${resolve(__dirname, '../examples')}`
 			const browser = await puppeteer.launch()
 			const page = await browser.newPage()
 			page.on('pageerror', e => error(e))
