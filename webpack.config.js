@@ -61,7 +61,7 @@ const testConfig = Object.assign({}, commonConfig, {
 
 module.exports = env => {
 	if (env && env.test){
-		return [testConfig, testConfig]
+		return testConfig
 	} else {
 		return libConfig
 	}
