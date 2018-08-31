@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events'
-import Tone from 'Tone/core/Tone'
-import 'Tone/core/Context'
-import 'Tone/core/Master'
+import Tone from 'tone/Tone/core/Tone'
+import 'tone/Tone/core/Context'
+import 'tone/Tone/core/Master'
 
 /**
  * Wraps tone and handles mute/unmute and events
@@ -11,26 +11,27 @@ export class Context extends EventEmitter {
 
 		super()
 
-		if (context.toString() !== 'Context' && !tone){
+		if (tone && tone.context !== Tone.context){
+			Tone.context = tone.context
+		} else if (context && context !== Tone.context){
 			Tone.context = context
-			context = Tone.context
-		} else if (tone){
-			Tone.context = tone.context._context
-			context = Tone.context
-			context.master = tone.Master
 		}
 
 		/**
 		 * Reference to the wrapper context
 		 * @type {Tone.Context}
 		 */
-		this.context = context
+		this.context = Tone.context
 
 		/**
 		 * Reference to the master output.
 		 * @type {Tone.Master}
 		 */
-		this.master = context.master
+		if (tone && tone.Master !== Tone.Master){
+			this.master = tone.Master
+		} else {
+			this.master = this.context.master
+		}
 
 		//add listeners
 		this.context.addEventListener('statechange', e => {

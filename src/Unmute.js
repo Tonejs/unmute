@@ -12,10 +12,6 @@ class Unmute extends EventEmitter {
 	constructor({ container=document.body, tone=window.Tone, context=(tone ? tone.context : null), title='Web Audio', mute=false } = {}){
 		super()
 
-		if (context === null){
-			context = new AudioContext()
-		}
-
 		/**
 		 * The HTML element
 		 * @type {Toggle}
