@@ -1,26 +1,17 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = {
+const commonConfig = {
 	mode : 'development',
-	entry : {
-		unmute : ['./src/Unmute.js'],
-	},
 	context : __dirname,
-	output : {
-		path : path.resolve(__dirname, 'build'),
-		filename : '[name].js',
-		library : 'UnmuteButton',
-		libraryTarget : 'umd',
-		libraryExport : 'UnmuteButton'
-	},
 	resolve : {
 		modules : [
 			'node_modules',
 			path.resolve(__dirname, '.'),
 		],
-		alias : {
+		/*alias : {
 			Tone : 'node_modules/tone/Tone'
-		},
+		},*/
 	},
 	module : {
 		rules : [
@@ -40,4 +31,38 @@ module.exports = {
 		]
 	},
 	devtool : 'source-map'
+}
+
+const libConfig = Object.assign({}, commonConfig, {
+	entry : {
+		unmute : './src/Unmute.js'
+	},
+	output : {
+		path : path.resolve(__dirname, 'build'),
+		filename : '[name].js',
+		library : 'UnmuteButton',
+		libraryTarget : 'umd',
+		libraryExport : 'UnmuteButton'
+	},	
+})
+
+const testConfig = Object.assign({}, commonConfig, {
+	entry : {
+		test : './test/build-test.js'
+	},
+	output : {
+		path : path.resolve(__dirname, 'build'),
+		filename : '[name].js',
+	},
+	plugins : [
+		new HtmlWebpackPlugin()
+	]
+})
+
+module.exports = env => {
+	if (env && env.test){
+		return [testConfig, testConfig]
+	} else {
+		return libConfig
+	}
 }
