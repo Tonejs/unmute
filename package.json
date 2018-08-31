@@ -25,6 +25,7 @@
     "concurrently": "^3.6.1",
     "css-loader": "^0.28.11",
     "eslint": "^5.2.0",
+    "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "looks-same": "^3.3.0",
     "mocha": "^5.2.0",
@@ -34,13 +35,13 @@
     "sass-loader": "^7.0.1",
     "semver": "^5.5.0",
     "style-loader": "^0.21.0",
-    "tone": "^13.2.7",
+    "tone": "^13.3.6",
     "url-loader": "^1.0.1",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3"
   },
   "peerDependencies": {
-    "tone": ">=13.2.7"
+    "tone": ">=13.3.2"
   },
   "keywords": [
     "Web Audio",
