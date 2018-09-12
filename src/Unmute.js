@@ -93,6 +93,13 @@ class Unmute extends EventEmitter {
 	remove(){
 		this._button.remove()
 	}
+
+	/**
+	 * Click on the element. Must come from a trusted MouseEvent to actually unmute the context
+	 */
+	click(){
+		this._button.click()
+	}
 }
 
 export function UnmuteButton(...args){
