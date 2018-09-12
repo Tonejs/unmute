@@ -26,7 +26,7 @@ const commonConfig = {
 			},
 			{
 				test : /\.(svg)$/,
-				loader : 'url-loader'
+				loader : 'raw-loader'
 			}
 		]
 	},

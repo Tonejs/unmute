@@ -1,21 +1,23 @@
-$margin: 8px;
-$size : 24px;
 
 #unmute-button {
+	--unmute-margin: 8px;
+	--unmute-size : 24px;
+	
 	position: fixed;
-	right: $margin;
-	top: $margin;
+	right: var(--unmute-margin);
+	top: var(--unmute-margin);
 	border-radius: 50%;
-	width: $size;
-	height: $size;
+	width: var(--unmute-size);
+	height: var(--unmute-size);
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
-	background: url('../images/volume-on.svg');
-	background-size: 100% 100%;
 
-	&.muted {
-		background: url('../images/volume-off.svg');
-		background-size: 100% 100%;
+	svg {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		height: 100%;
 	}
 }

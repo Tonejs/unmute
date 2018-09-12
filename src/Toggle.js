@@ -1,4 +1,6 @@
 import { EventEmitter } from 'events'
+import volumeOn from '../images/volume-on.svg'
+import volumeOff from '../images/volume-off.svg'
 
 export class Toggle extends EventEmitter {
 	constructor(container){
@@ -30,9 +32,15 @@ export class Toggle extends EventEmitter {
 		this.element.setAttribute('aria-pressed', m)
 		if (m){
 			this.element.classList.add('muted')
+			this.element.innerHTML = volumeOff
 		} else {
 			this.element.classList.remove('muted')
+			this.element.innerHTML = volumeOn
 		}
+	}
+
+	click(){
+		this.element.click()
 	}
 
 	/**
