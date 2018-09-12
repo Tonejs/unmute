@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TEST</title>
+	<script src="../build/unmute.js"></script>
+</head>
+<body>
+	<button id="indirection"></button>
+	<script>
+		window.unmute = UnmuteButton({ mute : true, container : 'none' })
+
+		document.querySelector('#indirection').addEventListener('click', () => {
+			window.unmute.click()
+		})
+	</script>
+</body>
+</html>

@@ -253,6 +253,18 @@ describe('Unmute', () => {
 		await browser.close()
 	})
 
+	it('can click indirectly', async () => {
+		const { browser, page } = await loadPage('indirect_click.html')
+
+		//click it
+		await page.click('#indirection')
+		await page.waitFor(100)
+		
+		const isMuted = await page.evaluate(() => window.unmute.mute)
+		expect(isMuted).to.be.false
+		await browser.close()
+	})
+
 	/**
 	 * Helper function to load a test html file and report any errors
 	 */
