@@ -13,7 +13,9 @@ export class Toggle extends EventEmitter {
 		this.element.setAttribute('aria-label', 'mute')
 
 		//add it to the container
-		container.appendChild(this.element)
+		if (container !== 'none'){
+			container.appendChild(this.element)
+		}
 
 		//forward the events
 		this.element.addEventListener('click', e => {

@@ -44,6 +44,7 @@ UnmuteButton takes an optional object as a parameter.
 ```javascript
 UnmuteButton({
 	//the parent element of the mute button
+	//can pass in "none" to create the element, but not add it to the DOM
 	container : document.querySelector('#container'),
 	//the title which appears on the iOS lock screen
 	title : 'Web Audio',
