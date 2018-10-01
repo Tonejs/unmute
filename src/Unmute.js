@@ -32,28 +32,29 @@ class Unmute extends EventEmitter {
 
 		//fwd events from the context
 		this._context.on('mute', m => {
+			console.log(m)
 			this._button.mute = m
 			this.emit(m ? 'mute' : 'unmute')
 		})
 
+
 		//listen for click events
 		this._button.on('click', () => {
 			if (this._context.state !== 'running'){
-				this._context.resume()
-				this._audioElement.click()
+				this.start()
 				this.emit('click')
 			} else {
 				this._context.toggleMute()
 			}
 		})
 
-		//start out in the contexts current state
-		this._button.mute = this._context.mute
-
 		//listen for started change
 		this._context.started().then(() => {
 			this.emit('start')
 		})
+		
+		//start out in the contexts current state
+		this._button.mute = this._context.mute
 	}
 
 	/**
@@ -61,7 +62,7 @@ class Unmute extends EventEmitter {
 	 * @type {Boolean}
 	 */
 	get mute(){
-		return this._button.mute
+		return this._context.mute
 	}
 
 	set mute(m){
@@ -99,6 +100,16 @@ class Unmute extends EventEmitter {
 	 */
 	click(){
 		this._button.click()
+	}
+
+	/**
+	 * Start the AudioContext. Must come from a trusted MouseEvent or keyboard event to actually unmute the context.
+	 */
+	start(){
+		if (this._context.state !== 'running'){
+			this._context.resume()
+			this._audioElement.click()
+		}
 	}
 }
 
