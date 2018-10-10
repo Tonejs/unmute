@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events'
 import Tone from 'tone/Tone/core/Tone'
+import 'tone/Tone/shim/StereoPannerNode'
 import 'tone/Tone/core/Context'
 import 'tone/Tone/core/Master'
 
