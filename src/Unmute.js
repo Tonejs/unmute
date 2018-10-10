@@ -32,11 +32,9 @@ class Unmute extends EventEmitter {
 
 		//fwd events from the context
 		this._context.on('mute', m => {
-			console.log(m)
 			this._button.mute = m
 			this.emit(m ? 'mute' : 'unmute')
 		})
-
 
 		//listen for click events
 		this._button.on('click', () => {
